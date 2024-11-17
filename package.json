@@ -9,13 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@polkadot/api": "^14.3.1",
     "@polkadot/extension-dapp": "^0.56.2",
+    "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query": "^5.60.5",
+    "@types/js-cookie": "^3.0.6",
     "@zebec-fintech/silver-card-sdk": "^1.0.2-alpha.1",
+    "hooks": "^0.3.2",
+    "js-cookie": "^3.0.5",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
+    "react-device-detect": "^2.2.3",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "tailwind-merge": "^2.5.4",
+    "terser-webpack-plugin": "^5.3.10",
+    "wagmi": "^2.12.33"
   },
   "devDependencies": {
     "@types/node": "^20",

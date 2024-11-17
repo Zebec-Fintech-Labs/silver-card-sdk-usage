@@ -1,7 +1,7 @@
 import {
   Recipient,
-  CountryCode,
   ZebecCardTAOService,
+  ZebecCardService,
 } from "@zebec-fintech/silver-card-sdk";
 import { toast } from "react-toastify";
 interface PurchaseCardProps {
@@ -21,37 +21,47 @@ interface PurchaseCardProps {
     countryCode: any;
     address1: string;
   };
+  type: "evm" | "bittensor";
+  chainId: number;
 }
 export const purchaseCard = async ({
   signer,
   address,
   amount,
   formFields,
+  type,
+  chainId,
 }: PurchaseCardProps) => {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY!;
   const encryptionKey = process.env.NEXT_PUBLIC_ENCRYPTION_KEY!;
-  const service = new ZebecCardTAOService(
-    signer.signer,
-    {
-      apiKey: apiKey,
-      encryptionKey: encryptionKey,
-    },
-    {
-      sandbox: true, // set true for testing and dev environment
-    }
-  );
+  let modifiedSigner = type === "evm" ? signer : signer?.signer;
+  let service;
+  if (type === "bittensor") {
+    service = new ZebecCardTAOService(
+      modifiedSigner,
+      {
+        apiKey: apiKey,
+        encryptionKey: encryptionKey,
+      },
+      {
+        sandbox: true, // set true for testing and dev environment
+      }
+    );
+  } else {
+    service = new ZebecCardService(
+      modifiedSigner,
+      chainId,
 
-  const participantId = "JohnChamling";
-  const firstName = "John";
-  const lastName = "Chamling";
-  const emailAddress = "ashishspkt6566@gmail.com";
-  const mobilePhone = "+9779876543210";
-  const language = "en-US";
-  const city = "Bharatpur";
-  const state = "Bagmati";
-  const postalCode = "44200";
-  const countryCode: CountryCode = "NPL";
-  const address1 = "Shittal street, Bharatpur - 10, Chitwan";
+      {
+        apiKey: apiKey,
+        encryptionKey: encryptionKey,
+      },
+      {
+        sandbox: true, // set true for testing and dev environment
+      }
+    );
+  }
+
   const recipient = Recipient.create(
     formFields?.participantId,
     formFields?.firstName,
@@ -67,19 +77,37 @@ export const purchaseCard = async ({
   );
   try {
     const quote = await service.fetchQuote(amount);
+    if (type === "bittensor") {
+      const [depositResponse, apiResponse] = await service.purchaseCard({
+        walletAddress: address,
+        amount: amount.toString(),
+        recipient,
+        quote: quote,
+      });
 
-    const [depositResponse, apiResponse] = await service.purchaseCard({
-      walletAddress: address,
-      amount: amount.toString(),
-      recipient,
-      quote: quote,
-    });
-    console.log("deposit res", depositResponse);
-    console.log("api res", apiResponse);
-    if (apiResponse && depositResponse) {
-      toast.success("Purchase Successful");
+      if (apiResponse && depositResponse) {
+        toast.success("Purchase Successful");
+      }
+    } else {
+      const [depositResponse, buyCardResponse, apiResponse] =
+        await service.purchaseCard({
+          walletAddress: address,
+          amount: amount.toString(),
+          recipient,
+          quote,
+        });
+      console.log(
+        "this is the data",
+        depositResponse,
+        buyCardResponse,
+        apiResponse
+      );
+      if (apiResponse && depositResponse && buyCardResponse) {
+        toast.success("Purchase Successful");
+      }
     }
-  } catch (error) {
+  } catch (error: any) {
+    toast.error(error);
     console.log("error", error);
     // toast.error("Purchase Failed");
   }
