@@ -15,7 +15,7 @@
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.60.5",
     "@types/js-cookie": "^3.0.6",
-    "@zebec-fintech/silver-card-sdk": "^1.0.2-alpha.1",
+    "@zebec-fintech/silver-card-sdk": "^1.0.3-alpha.1",
     "hooks": "^0.3.2",
     "js-cookie": "^3.0.5",
     "next": "15.0.3",

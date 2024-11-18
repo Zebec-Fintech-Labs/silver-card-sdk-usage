@@ -75,6 +75,8 @@ export const purchaseCard = async ({
     formFields?.countryCode,
     formFields?.address1
   );
+  console.log("recipient", recipient);
+
   try {
     const quote = await service.fetchQuote(amount);
     if (type === "bittensor") {

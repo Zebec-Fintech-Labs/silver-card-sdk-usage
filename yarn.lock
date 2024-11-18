@@ -2993,10 +2993,10 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@zebec-fintech/silver-card-sdk@^1.0.2-alpha.1":
-  version "1.0.2-alpha.1"
-  resolved "https://registry.yarnpkg.com/@zebec-fintech/silver-card-sdk/-/silver-card-sdk-1.0.2-alpha.1.tgz#f972d9845e49be04ed833d818bca1f9793302fa1"
-  integrity sha512-FJ9ZHJ7figNNdDVyEzUlFzacgnAuU4ab7RE149D674E5f9dP0Axp9CghNvcGRprbqtssABjU6IJBNVMiYLlkmA==
+"@zebec-fintech/silver-card-sdk@^1.0.3-alpha.1":
+  version "1.0.3-alpha.1"
+  resolved "https://registry.yarnpkg.com/@zebec-fintech/silver-card-sdk/-/silver-card-sdk-1.0.3-alpha.1.tgz#9b464d3bcdd7bf01a6d3e7e0c6c42e88f5f151bf"
+  integrity sha512-hi2TDY632B7ug1hqS2D/orWFL9mHeX/uSO3ZWOdX16BGeK50lynhl2PxnVK9zOJZPXwJdaAk5O9OfWAGv8zQ9w==
   dependencies:
     "@polkadot/api" "^14.3.1"
     "@polkadot/types" "^14.3.1"
