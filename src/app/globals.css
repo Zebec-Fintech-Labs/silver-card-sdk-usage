@@ -2,20 +2,582 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  /* Your default theme */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    /* Background */
+    --zebec-card-bg-primary: rgba(255, 255, 255, 1);
+    --zebec-card-bg-secondary: rgba(245, 245, 245, 1);
+    --zebec-card-bg-tertiary: rgba(235, 235, 235, 1);
+    --zebec-card-bg-light: rgba(43, 45, 51, 1);
+    --zebec-card-bg-muted: rgba(53, 57, 69, 1);
+    --zebec-card-bg-backdrop: rgba(0, 0, 0, 0.64);
+    --zebec-card-bg-contrast: rgba(20, 20, 20, 1);
+    /* Primary */
+    --zebec-card-primary-main: rgba(8, 224, 163, 1);
+    --zebec-card-primary-dark: rgba(7, 204, 148, 1);
+    --zebec-card-primary-light: rgba(8, 224, 163, 0.12);
+    --zebec-card-primary-contrast: rgba(255, 255, 255, 1);
+    --zebec-card-primary-accessible: rgba(5, 138, 100, 1);
+    --zebec-card-primary-gradient: linear-gradient(
+      93.42deg,
+      #08e0a3 -7.23%,
+      #e0ae1f 110.69%
+    );
+    --zebec-card-primary-gradient-hover: linear-gradient(
+      93.42deg,
+      #e0ae1f -7.23%,
+      #08e0a3 110.69%
+    );
+
+    /* Content */
+    --zebec-card-content-primary: rgba(20, 20, 20, 1);
+    --zebec-card-content-secondary: rgba(86, 86, 86, 1);
+    --zebec-card-content-contrast: rgba(117, 117, 117, 1);
+    --zebec-card-content-tertiary: rgba(117, 117, 117, 1);
+    /* Success */
+    --zebec-card-success-main: rgba(36, 132, 76, 1);
+    --zebec-card-success-content: rgba(111, 207, 151, 1);
+    /* Error */
+    --zebec-card-error-main: rgba(214, 86, 86, 1);
+    --zebec-card-error-light-bg: rgba(213, 65, 65, 0.2);
+    --zebec-card-error-light: rgba(214, 86, 86, 0.2);
+    --zebec-card-error-content: rgba(235, 87, 87, 1);
+
+    /* Warning */
+    --zebec-card-warning-main: rgba(165, 106, 2, 1);
+    /* Outline */
+    --zebec-card-outline-main: rgba(20, 20, 20, 0.08);
+    --zebec-card-outline-border: rgba(20, 20, 20, 0.08);
+    --zebec-card-outline-secondary: rgba(255, 255, 255, 0.04);
+    --zebec-card-outline-dark: rgba(53, 57, 69, 1);
+    --zebec-card-outline-icon: rgba(219, 251, 236, 0.08);
+    /* Tooltip */
+    --zebec-card-toltip-background: rgba(43, 45, 51, 0.98);
+
+    /* Font Sizes */
+    --zebec-card-fs-2xl: 2rem;
+    --zebec-card-fs-xl: 1.75rem;
+    --zebec-card-fs-lg: 1.5rem;
+    --zebec-card-fs-base: 1rem;
+    --zebec-card-fs-sm: 0.875rem;
+    --zebec-card-fs-xs: 0.75rem;
+    --zebec-card-fs-xxs: 0.625rem;
+    /* Line Heights */
+    --zebec-card-lh-leading-10: 2.5rem;
+    --zebec-card-lh-leading-8: 2rem;
+    --zebec-card-lh-leading-7: 1.75rem;
+    --zebec-card-lh-leading-6: 1.5rem;
+    --zebec-card-lh-leading-5: 1.25rem;
+    --zebec-card-lh-leading-4: 1rem;
+    --zebec-card-lh-leading-3: 0.875rem;
+    /* Letter Spacing */
+    --zebec-card--ls-tracking-2: -0.0094em;
+    --zebec-card--ls-tracking-1: -0.0075em;
+    --zebec-card-ls-tracking-1: 0.01em;
+    /* Box Shadow */
+    --zebec-card-bs-shadow-2: 0px 1px 0px #202021;
+    --zebec-card-bs-shadow-3: 0px 1px 3px rgba(0, 0, 0, 0.06),
+      0px 2px 1px rgba(0, 0, 0, 0.02), 0px 1px 1px rgba(0, 0, 0, 0.04);
+    --zebec-card-bs-shadow-backdrop: 0px 1px 3px rgba(0, 0, 0, 0.1),
+      0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08);
+    --zebec-card-bs-shadow-toaster: 0px 4px 4px rgba(0, 0, 0, 0.25),
+      0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06);
+    --zebec-card-debit-card-progress: rgba(184, 106, 106, 1);
+  }
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(0);
+  }
+  [data-theme="dark"] {
+    --black: #000000;
+    --white: #ffffff;
+    /* Background */
+    --zebec-card-bg-primary: rgba(13, 14, 15, 1);
+    --zebec-card-bg-secondary: rgba(26, 27, 31, 1);
+    --zebec-card-bg-tertiary: rgba(235, 235, 235, 1);
+    --zebec-card-bg-light: rgba(43, 45, 51, 1);
+    --zebec-card-bg-muted: rgba(53, 57, 69, 1);
+    --zebec-card-bg-backdrop: rgba(0, 0, 0, 0.64);
+    --zebec-card-bg-contrast: rgba(20, 20, 20, 1);
+    /* Primary */
+    --zebec-card-primary-main: rgba(8, 224, 163, 1);
+    --zebec-card-primary-dark: rgba(7, 184, 134, 1);
+    --zebec-card-primary-light: rgba(8, 224, 163, 0.2);
+    --zebec-card-primary-contrast: rgba(255, 255, 255, 1);
+    --zebec-card-primary-gradient: linear-gradient(
+      93.42deg,
+      #08e0a3 -7.23%,
+      #e0ae1f 110.69%
+    );
+    --zebec-card-primary-gradient-hover: linear-gradient(
+      93.42deg,
+      #e0ae1f -7.23%,
+      #08e0a3 110.69%
+    );
+    /* Content */
+    --zebec-card-content-primary: rgba(255, 255, 255, 0.9);
+    --zebec-card-content-secondary: rgba(255, 255, 255, 0.72);
+    --zebec-card-content-contrast: rgba(255, 255, 255, 0.4);
+    /* Success */
+    --zebec-card-success-main: rgba(88, 189, 125, 1);
+    /* Error */
+    --zebec-card-error-main: rgba(214, 86, 86, 1);
+    --zebec-card-error-light-bg: rgba(213, 65, 65, 0.2);
+    /* Warning */
+    --zebec-card-warning-main: rgba(214, 158, 60, 1);
+    /* Outline */
+    --zebec-card-outline-main: rgba(20, 20, 20, 1);
+    --zebec-card-outline-secondary: rgba(255, 255, 255, 0.04);
+    --zebec-card-outline-icon: rgba(219, 251, 236, 0.08);
+
+    /* Tooltip */
+    --zebec-card-toltip-background: rgba(43, 45, 51, 0.98);
+
+    /* zebec card progress  */
+    --zebec-card-debit-card-progress: rgba(184, 106, 106, 1);
+  }
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    @apply font-inter text-body min-h-screen;
+  }
+
+  /* Forms */
+  label {
+    @apply text-caption text-zebec-card-content-secondary font-medium mb-1 pl-2;
+  }
+  .how-to-use,
+  ol {
+    list-style: revert;
+    /* list-style-position: inside; */
+  }
+}
+/* ul, ol {
+  list-style: revert;
+} */
+.card-actions-style {
+  @apply bg-zebec-card-background-primary mt-1 cursor-pointer justify-center flex py-1 items-center gap-2 rounded-md border border-zebec-card-outline;
+}
+/* Custom classes */
+.gradient-text {
+  background: linear-gradient(93.42deg, #08e0a3 -7.23%, #e0ae1f 110.69%);
+  @apply text-transparent bg-clip-text;
+}
+.gradient-background {
+  background: var(--zebec-card-primary-gradient);
+}
+.primary-gradient-border {
+  background-clip: content-box, border-box;
+  @apply border-2 border-transparent bg-origin-border rounded-lg;
+  background-image: linear-gradient(
+      var(--zebec-card-bg-secondary),
+      var(--zebec-card-bg-secondary)
+    ),
+    var(--zebec-card-primary-gradient);
+}
+.primary-gradient-border:hover,
+.primary-gradient-border:focus {
+  background-image: linear-gradient(
+      var(--zebec-card-bg-tertiary),
+      var(--zebec-card-bg-tertiary)
+    ),
+    var(--zebec-card-primary-gradient-hover);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.modal-gradient-border {
+  background-clip: content-box, border-box;
+  @apply border-2 border-transparent bg-origin-border rounded-lg;
+  background-image: linear-gradient(
+      var(--zebec-card-bg-secondary),
+      var(--zebec-card-bg-secondary)
+    ),
+    var(--zebec-card-primary-gradient-hover);
+}
+.animate {
+  @apply transition-all duration-300 ease-in-out;
+}
+select option {
+  @apply h-5;
+}
+
+select {
+  @apply box-border flex flex-row items-center flex-none  order-none grow-0 px-4 py-2 bg-zebec-card-background-primary border-[1px] border-zebec-card-outline rounded-lg w-80;
+}
+
+input::placeholder {
+  @apply text-zebec-card-content-contrast opacity-100;
+}
+:-ms-input-placeholder {
+  @apply text-zebec-card-content-contrast;
+}
+::-ms-input-placeholder {
+  @apply text-zebec-card-content-contrast;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="number"] {
+  /* input */
+  @apply text-sm box-border flex order-1  flex-none flex-grow-0 self-stretch items-start px-5 text-zebec-card-content-primary 
+  bg-zebec-card-background-primary  border-[1px] border-gray-200 rounded-lg
+  placeholder:text-zebec-card-content-contrast w-full py-3 mt-1 max-w-80;
+}
+input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="date"]:disabled,
+input[type="email"]:disabled,
+input[type="number"]:disabled {
+  @apply text-zebec-card-content-primary;
+}
+
+input[type="text"].is-amount,
+input[type="number"].is-amount,
+input[type="text"].is-amount:focus,
+input[type="number"].is-amount:focus {
+  @apply pl-[104px] pr-[96px];
+}
+
+input[type="text"].is-search,
+input[type="number"].is-search,
+input[type="text"].is-search:focus,
+input[type="number"].is-search:focus {
+  @apply pl-12;
+}
+
+.dropdown-focus:focus {
+  outline: none;
+  --tw-ring-shadow: var(--zebec-card-tw-ring-inset) 0 0 0
+    calc(4px + var(--zebec-card-tw-ring-offset-width))
+    var(--zebec-card-primary-light);
+  box-shadow: var(--zebec-card-tw-ring-offset-shadow),
+    var(--zebec-card-tw-ring-shadow), var(--zebec-card-tw-shadow);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+select:focus {
+  /* focused */
+  @apply text-zebec-card-content-primary order-1 flex-grow-0 flex-none flex items-start bg-zebec-card-background-primary border-zebec-card-primary;
+  outline: none;
+  --tw-ring-shadow: var(--zebec-card-tw-ring-inset) 0 0 0
+    calc(4px + var(--zebec-card-tw-ring-offset-width))
+    var(--zebec-card-primary-light);
+  box-shadow: var(--zebec-card-tw-ring-offset-shadow),
+    var(--zebec-card-tw-ring-shadow), var(--zebec-card-tw-shadow);
+}
+.textarea {
+  @apply text-sm box-border flex order-1  flex-none flex-grow-0 self-stretch items-start px-5 text-zebec-card-content-primary 
+  bg-zebec-card-background-primary  border-[1px] border-gray-200 rounded-lg
+  placeholder:text-zebec-card-content-contrast w-full py-3 mt-1;
+}
+.textarea:focus {
+  @apply text-zebec-card-content-primary order-1 flex-grow-0 flex-none flex items-start bg-zebec-card-background-primary border-zebec-card-primary;
+  outline: none;
+  --tw-ring-shadow: var(--zebec-card-tw-ring-inset) 0 0 0
+    calc(4px + var(--zebec-card-tw-ring-offset-width))
+    var(--zebec-card-primary-light);
+  box-shadow: var(--zebec-card-tw-ring-offset-shadow),
+    var(--zebec-card-tw-ring-shadow), var(--zebec-card-tw-shadow);
+}
+
+input.error,
+textarea.error,
+.select-error,
+.select-error:focus,
+input.error:focus,
+.textarea:focus {
+  @apply border-zebec-card-error;
+}
+.after label::after {
+  content: "*";
+  color: #ff0000;
+}
+.select-error:focus,
+input.error:focus,
+.select-error:focus,
+.textarea:focus {
+  --tw-ring-shadow: var(--zebec-card-tw-ring-inset) 0 0 0
+    calc(4px + var(--zebec-card-tw-ring-offset-width))
+    var(--zebec-card-error-light);
+  box-shadow: var(--zebec-card-tw-ring-offset-shadow),
+    var(--zebec-card-tw-ring-shadow), var(--zebec-card-tw-shadow);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  @apply m-0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  @apply w-1.5 h-1.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-zebec-card-background-tertiary rounded-[3px];
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-[#555] rounded-[3px];
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#444];
+}
+
+.steps-container {
+  @apply relative;
+}
+.steps-container::after {
+  content: "";
+  @apply absolute left-[11px] h-12 w-px top-12 mt-2 bg-zebec-card-outline;
+}
+.steps-container.last::after {
+  content: none;
+}
+
+/* Toggle */
+.toggle-bg:after {
+  content: "";
+  @apply absolute top-1 left-1 bg-zebec-card-background-light rounded-full h-3 w-3 transition;
+}
+input[type="checkbox"]:checked + .toggle-bg:after {
+  transform: translateX(140%);
+  @apply bg-zebec-card-content-primary;
+}
+input[type="radio"]:after {
+  content: "";
+  @apply w-5 h-5 -top-1 -left-1 visible absolute rounded-full bg-zebec-card-background-secondary border-2 border-zebec-card-outline inline-block;
+}
+input.error[type="radio"]:after {
+  content: "";
+  @apply w-5 h-5 -top-1 -left-1 visible absolute rounded-full bg-zebec-card-background-secondary border border-zebec-card-error inline-block;
+}
+input[type="radio"]:focus,
+input[type="radio"]:checked:focus {
+  box-shadow: none;
+  @apply outline-0;
+}
+
+input[type="radio"]:checked::after,
+input[type="radio"]:checked:hover::after {
+  content: "";
+  /* background: var(--zebec-card-bg-primary)
+    url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTIxLjcwNzEgNS4yOTI4OUMyMi4wOTc2IDUuNjgzNDIgMjIuMDk3NiA2LjMxNjU4IDIxLjcwNzEgNi43MDcxMUw5LjcwNzExIDE4LjcwNzFDOS4zMTY1OCAxOS4wOTc2IDguNjgzNDIgMTkuMDk3NiA4LjI5Mjg5IDE4LjcwNzFMMi4yOTI4OSAxMi43MDcxQzEuOTAyMzcgMTIuMzE2NiAxLjkwMjM3IDExLjY4MzQgMi4yOTI4OSAxMS4yOTI5QzIuNjgzNDIgMTAuOTAyNCAzLjMxNjU4IDEwLjkwMjQgMy43MDcxMSAxMS4yOTI5TDkgMTYuNTg1OEwyMC4yOTI5IDUuMjkyODlDMjAuNjgzNCA0LjkwMjM3IDIxLjMxNjYgNC45MDIzNyAyMS43MDcxIDUuMjkyODlaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjkiLz4NCiAgICA8L3N2Zz4NCiAgICA="); */
+  background-position: center;
+  background-size: contain;
+  @apply w-5 h-5 flex justify-center items-center text-zebec-card-content-primary rounded-full -top-1 -left-1  bg-zebec-card-content-primary border-[5px] border-zebec-card-primary  visible;
+}
+input[type="radio"] {
+  @apply relative;
+}
+input[type="radio"]:hover::after {
+  @apply bg-zebec-card-background-light;
+}
+
+.withdrawsteps-container {
+  @apply relative;
+}
+.withdrawsteps-container::after {
+  content: "";
+  @apply absolute left-1.5 h-[18px] w-px top-1.5 mt-2 bg-zebec-card-outline;
+}
+.withdrawsteps-container.last::after {
+  content: none;
+}
+
+.nft-overlay {
+  background: linear-gradient(180deg, rgba(26, 27, 31, 0) 0%, #0d0e0f 100%);
+}
+
+.gradient-color {
+  background: linear-gradient(
+    93.42deg,
+    #1abdbd -7.23%,
+    #4f65db 52.96%,
+    #9543b3 110.69%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+.skeleton-background {
+  background: linear-gradient(
+    90deg,
+    rgba(43, 45, 51, 0.8) 0%,
+    rgba(43, 45, 51, 0.48) 100%
+  );
+}
+
+/* Notifi */
+.NotifiEmailInput__input {
+  @apply w-full border-none text-sm box-border flex order-1 flex-col flex-none flex-grow-0 self-stretch items-start px-5 py-3 mb-5 text-zebec-card-content-primary bg-zebec-card-background-primary border-zebec-card-outline border-[1px] rounded-lg;
+}
+.NotifiEmailInput__input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.EventTypeDirectPushRow__container,
+.EventTypeBroadcastRow__container {
+  @apply flex flex-row-reverse justify-end gap-2.5 mt-3;
+}
+.EventTypeDirectPushRow__label,
+.EventTypeBroadcastRow__label {
+  @apply text-zebec-card-content-secondary font-medium;
+}
+.NotifiToggle__input {
+  @apply w-5 h-5 bg-transparent border-2 border-zebec-card-content-tertiary text-zebec-card-primary;
+}
+.NotifiToggle__input:focus {
+  box-shadow: none;
+}
+.NotifiSubscribeButton__button {
+  margin-top: 40px;
+  height: 40px;
+  background-clip: content-box, border-box;
+  @apply border-2 border-transparent bg-origin-border rounded-lg w-full text-zebec-card-content-primary text-button font-semibold;
+  background-image: linear-gradient(
+      var(--zebec-card-bg-secondary),
+      var(--zebec-card-bg-secondary)
+    ),
+    var(--zebec-card-primary-gradient);
+}
+.NotifiSubscribeButton__button:hover,
+.NotifiSubscribeButton__button:focus {
+  background-image: linear-gradient(
+      var(--zebec-card-bg-tertiary),
+      var(--zebec-card-bg-tertiary)
+    ),
+    var(--zebec-card-primary-gradient-hover);
+}
+.NotifiFooter__container {
+  display: none;
+}
+
+.card-action {
+  @apply bg-zebec-card-background-primary text-zebec-card-content-primary shadow-sm mt-1 cursor-pointer justify-center flex py-1.5 items-center gap-2 rounded-md border border-zebec-card-outline;
+}
+
+/* .auth-wave-bg{
+  background-image: url("../assets/images/auth-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  
+} */
+
+.accout-info-cards-box-shadow {
+  box-shadow:
+    0px 1px 1px 0px rgba(0, 0, 0, 0.08),
+    0px 2px 1px 0px rgba(0, 0, 0, 0.06),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+.floating {
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.register-floating {
+  animation-name: register-floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.card-moving-clockwise {
+  animation-name: card-mover-clockwise;
+  animation-duration: 3s;
+  /* animation-iteration-count: infinite; */
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes card-mover-clockwise {
+  0% {
+    transform: rotate(0deg); /* Equal to rotateZ(45deg) */
+  }
+
+  100% {
+    transform: rotate(
+      20deg
+    ); /* Stay at 45 degrees for the rest of the animation */
+  }
+}
+.card-moving-anticlockwise {
+  animation-name: card-mover-anticlockwise;
+  animation-duration: 3s;
+  /* animation-iteration-count: infinite; */
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes card-mover-anticlockwise {
+  0% {
+    transform: rotate(0deg); /* Equal to rotateZ(45deg) */
+  }
+
+  100% {
+    transform: rotate(
+      -20deg
+    ); /* Stay at 45 degrees for the rest of the animation */
+  }
+}
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+    rotate: 5deg;
+  }
+  50% {
+    transform: translate(0, 15px);
+    rotate: 0deg;
+  }
+  100% {
+    transform: translate(0, -0px);
+    rotate: 5deg;
+  }
+}
+@keyframes register-floating {
+  0% {
+    transform: translate(0, 0px);
+    rotate: -5deg;
+  }
+  50% {
+    transform: translate(0, 15px);
+    rotate: 0deg;
+  }
+  100% {
+    transform: translate(0, -0px);
+    rotate: -5deg;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* steps css */
+.step {
+  box-shadow:
+    0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+    0px 2px 1px 0px rgba(0, 0, 0, 0.04),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.06);
 }

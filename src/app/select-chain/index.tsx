@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useDisconnect } from "wagmi";
 // import { CollapseDropdown } from "components/shared";
 // import { useChainContext } from "app/ChainContext"
@@ -9,8 +9,20 @@ import { useClickOutside } from "../useClickOutside";
 import Cookies from "js-cookie";
 import { CollapseDropdown } from "../CollapseDropdown";
 import { CheveronDownIcon } from "../assets/icons";
+import { Chain } from "../Chain";
+interface SelectChainProps {
+  showWalletsModal: boolean;
+  setShowWalletsModal: React.Dispatch<React.SetStateAction<boolean>>;
+  connectedAccount: string;
+  disconnect: () => any;
+}
 
-const SelectChain = () => {
+const SelectChain: FC<SelectChainProps> = ({
+  showWalletsModal,
+  setShowWalletsModal,
+  connectedAccount,
+  disconnect,
+}) => {
   const chainDropdownRef = useRef<HTMLDivElement | null>(null);
   const { currentChain, chainLists, setChain } = useChainContext();
   const { disconnect: evmDisconnect } = useDisconnect();
@@ -49,11 +61,16 @@ const SelectChain = () => {
   }, []);
 
   return (
-    <div className="flex items-center w-[200px] mb-4">
-      <div className="relative flex-1 bg-white " ref={chainDropdownRef}>
+    <div className="flex items-center w-full mb-4">
+      <div
+        className="relative  flex items-center gap-16  bg-white "
+        ref={chainDropdownRef}
+      >
         <button
           className="bg-transparent flex items-center gap-1.5 p-1 sm:p-1.5 flex-1 w-full justify-between border border-outline-border rounded-md"
-          onClick={() => setToggleChainDropdown((prev) => !prev)}
+          onClick={() => {
+            setToggleChainDropdown((prev) => !prev);
+          }}
         >
           <div className="w-5 h-5 relative">
             <Image
@@ -70,6 +87,21 @@ const SelectChain = () => {
             }`}
           /> */}
         </button>
+        {connectedAccount ? (
+          <div className="flex items-center gap-2">
+            <p className="mb-2">Connected Account: {connectedAccount}</p>
+            <button
+              onClick={() => {
+                disconnect();
+              }}
+              className="w-[200px] disabled:bg-zebec-card-background-tertiary/50 disabled:cursor-not-allowed bg-zebec-card-background-tertiary px-4  py-1 text-lg rounded-lg transition-all"
+            >
+              Disconnect Wallet
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
         <CollapseDropdown
           show={toggleChainDropdown}
           className="bg-background-primary top-10 sm:top-11 divide-none max-h-64 hover:overflow-y-auto flex flex-col right-0 left-auto bottom-auto sm:left-0 sm:right-0 rounded-lg py-2 px-4 gap-y-2 shadow-md w-max sm:min-w-[200px]"
@@ -87,6 +119,8 @@ const SelectChain = () => {
               onClick={() => {
                 setChain(chain);
                 setToggleChainDropdown(false);
+                setShowWalletsModal((prev) => !prev);
+
                 localStorage.setItem(
                   "card_chain_details",
                   JSON.stringify(chain)
@@ -99,12 +133,6 @@ const SelectChain = () => {
                     },
                   }
                 );
-                // tronDisconnect().then(() => onDisconnectSuccess())
-                // tonConnectUI
-                //   ?.disconnect()
-                //   .then(() => onDisconnectSuccess())
-                //   .catch(() => { })
-                // suiDisconnect().then(() => onDisconnectSuccess())
               }}
             >
               <div className="flex items-center gap-2 transition-colors text-sm font-semibold text-content-primary">

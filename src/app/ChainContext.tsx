@@ -70,7 +70,8 @@ export const ChainContextProvider: React.FC<PropsWithChildren> = ({
   const chainDetails = React.useMemo(() => {
     if (chain.chainSymbol === "BITTENSOR") return chain;
     chain["chainId"] =
-      NetworkConfig[chain.chainSymbol][process.env.RPC_NETWORK || "devnet"];
+      NetworkConfig[chain?.chainSymbol] &&
+      NetworkConfig[chain?.chainSymbol][process.env.RPC_NETWORK || "devnet"];
     return chain;
   }, [chain]);
 

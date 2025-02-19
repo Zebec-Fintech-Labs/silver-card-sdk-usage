@@ -11,6 +11,11 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  env: {
+    RPC_NETWORK: process.env.RPC_NETWORK,
+    ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+    API_KEY: process.env.API_KEY,
+  },
 
   generateEtags: false,
   webpack(config, { isServer }) {

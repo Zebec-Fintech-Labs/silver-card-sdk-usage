@@ -19,6 +19,7 @@ import {
 import Cookies from "js-cookie";
 import { isMobile } from "react-device-detect";
 import { useEthersSigner } from "./ethers";
+import { Modal } from "./Modal";
 
 export default function Home() {
   const {
@@ -80,12 +81,14 @@ export default function Home() {
       }
     }
     setPendingConnector(con);
-    await connect({ connector: con });
+    connect({ connector: con });
     setPendingConnector(null);
     Cookies.remove("app_initialized");
   };
   const evmSigner = useEthersSigner();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: any) => {
+    setLoading(true);
     e.preventDefault();
     try {
       let formFields = {
@@ -102,7 +105,7 @@ export default function Home() {
         address1,
       };
 
-      await purchaseCard({
+      const res = await purchaseCard({
         signer: currentChain?.name === "Bittensor" ? signer : evmSigner,
         address:
           currentChain?.name === "Bittensor" ? accounts[0]?.address : address,
@@ -111,7 +114,25 @@ export default function Home() {
         type: currentChain?.name !== "Bittensor" ? "evm" : "bittensor",
         chainId: currentChain?.chainId!,
       });
+      if (res) {
+        setLoading(false);
+
+        setAmount(0);
+        setParticipantId("");
+        setFirstName("");
+        setLastName("");
+        setEmailAddress("");
+        setMobilePhone("");
+        setLanguage("en-US");
+        setCity("");
+        setState("");
+        setPostalCode("");
+        setCountryCode("");
+        setAddress1("");
+      }
     } catch (error) {
+      setLoading(false);
+
       console.log("error", error);
     }
   };
@@ -123,7 +144,7 @@ export default function Home() {
     isError,
     error: errorMsg,
   } = useSignMessage();
-
+  const [showWalletsModal, setShowWalletsModal] = useState(true);
   const [isSwitchingChain, setIsSwitchingChain] = useState<boolean>(false);
   useEffect(() => {
     if (isConnected && address && evmSigner) {
@@ -171,24 +192,22 @@ export default function Home() {
 
   return (
     <div className="p-6">
-      <SelectChain />
+      <SelectChain
+        setShowWalletsModal={setShowWalletsModal}
+        showWalletsModal={showWalletsModal}
+        connectedAccount={
+          currentChain?.name === "Bittensor" && walletConnected
+            ? accounts[0]?.address
+            : address
+        }
+        disconnect={() => {
+          disconnect();
+          setWalletConnected(false);
+        }}
+      />
 
       {walletConnected || isConnected ? (
         <div>
-          <div className="flex items-center gap-2">
-            <p className="mb-2">
-              Connected Account: {accounts[0]?.address || address}
-            </p>
-            <button
-              onClick={() => {
-                setWalletConnected(false);
-                disconnect();
-              }}
-              className="w-[200px] bg-slate-300 px-4 py-1 text-lg hover:bg-slate-300/80 transition-all"
-            >
-              Disonnect Wallet
-            </button>
-          </div>
           <form
             className="form-fields flex  flex-col gap-2"
             onSubmit={handleSubmit}
@@ -282,6 +301,7 @@ export default function Home() {
                 onChange={(e: any) => {
                   setLanguage(e.target.value);
                 }}
+                disabled={true}
               />
             </div>
             <div className="flex items-center gap-4">
@@ -334,7 +354,7 @@ export default function Home() {
                 Country Code
               </label>
               <select
-                className="border border-slate-400 outline-none focus:outline-none px-4 py-1.5 bg-white w-[280px]"
+                className=""
                 required
                 value={countryCode}
                 onChange={(e: any) => {
@@ -382,7 +402,8 @@ export default function Home() {
             </div>
             <button
               type="submit"
-              className="w-[200px] bg-slate-300 px-4  py-1 text-lg hover:bg-slate-300/80 transition-all"
+              className="w-[200px] disabled:bg-gray-300 disabled:cursor-not-allowed bg-zebec-card-background-tertiary px-4  py-1 text-lg rounded-lg transition-all"
+              disabled={loading}
             >
               Purchase Card
             </button>
@@ -391,54 +412,77 @@ export default function Home() {
       ) : (
         <div className="flex items-center gap-4">
           {currentChain?.name === "Bittensor" ? (
-            <button
-              onClick={() => {
-                if (currentChain?.name === "Bittensor") {
-                  connectWallet();
-                }
+            <Modal
+              show={showWalletsModal}
+              toggleModal={() => {
+                setShowWalletsModal(false);
               }}
-              className="w-[250px] bg-slate-300 px-4 py-1 text-lg hover:bg-slate-300/80 transition-all"
+              hasCloseIcon={true}
+              closeOnOutsideClick={true}
+              size="small"
             >
-              Connect Bittensor Wallet
-            </button>
+              <p className="w-full px-4 py-2.5 text-lg ">Connect Wallet</p>
+
+              <button
+                onClick={() => {
+                  if (currentChain?.name === "Bittensor") {
+                    connectWallet();
+                    setShowWalletsModal(false);
+                  }
+                }}
+                className="w-full px-4 py-2.5 flex justify-between items-center"
+              >
+                <span className="font-semibold text-content-primary">
+                  Bittensor Wallet
+                </span>
+              </button>
+            </Modal>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-y-3">
-              {wallets.map((con) => {
-                const provider = con.getProvider();
-                return (
-                  <button
-                    key={`${con.id}-${con.name}`}
-                    disabled={
-                      isReconnecting || !provider || connector?.id === con.id
-                    }
-                    onClick={() => handleConnect(con)}
-                    className="w-full px-4 py-2.5 flex justify-between items-center"
-                  >
-                    <div className="flex items-center">
-                      {/* {getIcon(
-                        con.id === "injected" && con.name === "Bitget"
-                          ? "bitkeep"
-                          : con.name,
-                        con?.icon ?? ""
-                      )} */}
-                      <span className="font-semibold text-content-primary">
-                        {con.id === "injected" && con.name === "Bitget"
-                          ? "Bitget Wallet"
-                          : con.id === "injected" && con.name === "Binance"
-                            ? "Binance Wallet"
-                            : con.name}
-                      </span>
-                    </div>
-                    {!provider && (
-                      <span className="text-xs font-medium text-content-tertiary">
-                        (unsupported)
-                      </span>
-                    )}
-                    {/* {con.name === pendingConnector?.name && "..."} */}
-                  </button>
-                );
-              })}
-            </div>
+            <Modal
+              show={showWalletsModal}
+              toggleModal={() => {
+                setShowWalletsModal(false);
+              }}
+              hasCloseIcon={true}
+              closeOnOutsideClick={true}
+              size="small"
+            >
+              <div className="flex flex-col items-center justify-center   gap-y-3">
+                <p className="w-full px-4 py-2.5 text-lg  ">Connect Wallet</p>
+                {wallets.map((con) => {
+                  const provider = con.getProvider();
+                  return (
+                    <button
+                      key={`${con.id}-${con.name}`}
+                      disabled={
+                        isReconnecting || !provider || connector?.id === con.id
+                      }
+                      onClick={() => {
+                        handleConnect(con);
+                        setShowWalletsModal(false);
+                      }}
+                      className="w-full px-4 py-2.5 flex justify-between items-center"
+                    >
+                      <div className="flex items-center">
+                        <span className="font-semibold text-content-primary">
+                          {con.id === "injected" && con.name === "Bitget"
+                            ? "Bitget Wallet"
+                            : con.id === "injected" && con.name === "Binance"
+                              ? "Binance Wallet"
+                              : con.name}
+                        </span>
+                      </div>
+                      {!provider && (
+                        <span className="text-xs font-medium text-content-tertiary">
+                          (unsupported)
+                        </span>
+                      )}
+                      {/* {con.name === pendingConnector?.name && "..."} */}
+                    </button>
+                  );
+                })}
+              </div>
+            </Modal>
           )}
         </div>
       )}

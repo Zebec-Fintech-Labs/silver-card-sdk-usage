@@ -32,8 +32,8 @@ export const purchaseCard = async ({
   type,
   chainId,
 }: PurchaseCardProps) => {
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY!;
-  const encryptionKey = process.env.NEXT_PUBLIC_ENCRYPTION_KEY!;
+  const apiKey = process.env.API_KEY!;
+  const encryptionKey = process.env.ENCRYPTION_KEY!;
   let modifiedSigner = type === "evm" ? signer : signer?.signer;
   let service;
   if (type === "bittensor") {
@@ -79,6 +79,8 @@ export const purchaseCard = async ({
 
   try {
     const quote = await service.fetchQuote(amount);
+    console.log("here are the values", amount, quote);
+
     if (type === "bittensor") {
       const [depositResponse, apiResponse] = await service.purchaseCard({
         walletAddress: address,
@@ -89,6 +91,7 @@ export const purchaseCard = async ({
 
       if (apiResponse && depositResponse) {
         toast.success("Purchase Successful");
+        return apiResponse;
       }
     } else {
       const [depositResponse, buyCardResponse, apiResponse] =
@@ -106,11 +109,17 @@ export const purchaseCard = async ({
       );
       if (apiResponse && depositResponse && buyCardResponse) {
         toast.success("Purchase Successful");
+        return apiResponse;
       }
     }
   } catch (error: any) {
-    toast.error(error);
-    console.log("error", error);
-    // toast.error("Purchase Failed");
+    const errorMessage =
+      typeof error === "string"
+        ? error
+        : error?.message || JSON.stringify(error);
+
+    toast.error(JSON.stringify(errorMessage));
+    console.log("error here", errorMessage);
+    throw error;
   }
 };

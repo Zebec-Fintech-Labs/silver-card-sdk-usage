@@ -1,2 +1,4 @@
 import CheveronDownIcon from "./cheveron-down.svg";
-export { CheveronDownIcon };
+import CrossIcon from "./cross.svg";
+
+export { CheveronDownIcon, CrossIcon };
