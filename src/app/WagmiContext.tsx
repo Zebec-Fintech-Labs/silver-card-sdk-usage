@@ -19,9 +19,11 @@ export const config = createConfig({
     metaMask({
       dappMetadata: {
         name: "wagmi",
+        url: "https://app.card.zebec.io/",
       },
       useDeeplink: false,
     }),
+
     coinbaseWallet({ appName: "wagmi" }),
     walletConnect({ projectId }),
     injected({
@@ -34,6 +36,7 @@ export const config = createConfig({
       },
     }),
   ],
+
   transports: {
     [mainnet.id]: http(),
     [sepolia.id]: http(),

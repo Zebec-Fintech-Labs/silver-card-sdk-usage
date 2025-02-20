@@ -1,15 +1,14 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useDisconnect } from "wagmi";
-// import { CollapseDropdown } from "components/shared";
-// import { useChainContext } from "app/ChainContext"
+
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { useChainContext } from "../ChainContext";
-import { useClickOutside } from "../useClickOutside";
+
 import Cookies from "js-cookie";
 import { CollapseDropdown } from "../CollapseDropdown";
-import { CheveronDownIcon } from "../assets/icons";
-import { Chain } from "../Chain";
+import { useClickOutside } from "@/app/useClickOutside";
+import { useChainContext } from "@/app/ChainContext";
+
 interface SelectChainProps {
   showWalletsModal: boolean;
   setShowWalletsModal: React.Dispatch<React.SetStateAction<boolean>>;

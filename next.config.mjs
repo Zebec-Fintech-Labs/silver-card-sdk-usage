@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const TerserPlugin = require("terser-webpack-plugin");
+// const TerserPlugin = require("terser-webpack-plugin");
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,6 +15,9 @@ const nextConfig = {
     RPC_NETWORK: process.env.RPC_NETWORK,
     ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
     API_KEY: process.env.API_KEY,
+  },
+  experimental: {
+    turbo: false, // Ensure Turbopack is disabled
   },
 
   generateEtags: false,
@@ -40,20 +43,20 @@ const nextConfig = {
         use: [{ loader: "@svgr/webpack", options: { icon: true } }],
       }
     );
-    if (!isServer) {
-      config.optimization.minimizer = [
-        new TerserPlugin({
-          terserOptions: {
-            ecma: 8, // Set ECMAScript version to 8
-            compress: true,
-            mangle: true,
-            output: {
-              comments: false,
-            },
-          },
-        }),
-      ];
-    }
+    // if (!isServer) {
+    //   config.optimization.minimizer = [
+    //     new TerserPlugin({
+    //       terserOptions: {
+    //         ecma: 8, // Set ECMAScript version to 8
+    //         compress: true,
+    //         mangle: true,
+    //         output: {
+    //           comments: false,
+    //         },
+    //       },
+    //     }),
+    //   ];
+    // }
     return config;
   },
   async headers() {
@@ -91,4 +94,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = nextConfig;
+export default nextConfig;

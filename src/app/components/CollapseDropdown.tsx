@@ -54,14 +54,16 @@ export const CollapseDropdown: FC<CollapseDropdownProps> = (props) => {
 
   const isInViewport = (element: HTMLElement) => {
     const clientRect = element.getBoundingClientRect();
-    return (
-      clientRect.top >= 0 &&
-      clientRect.left >= 0 &&
-      clientRect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      clientRect.right <=
-        (window.innerWidth || document.documentElement.clientWidth)
-    );
+    if (typeof window !== undefined) {
+      return (
+        clientRect.top >= 0 &&
+        clientRect.left >= 0 &&
+        clientRect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        clientRect.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
   };
 
   useEffect(() => {

@@ -5,7 +5,6 @@ import { useBittensorWallet } from "./services/useBittensorwallet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { allCountriesWithCode } from "@zebec-fintech/silver-card-sdk";
-import SelectChain from "./select-chain";
 import { useChainContext } from "./ChainContext";
 import {
   Connector,
@@ -19,7 +18,8 @@ import {
 import Cookies from "js-cookie";
 import { isMobile } from "react-device-detect";
 import { useEthersSigner } from "./ethers";
-import { Modal } from "./Modal";
+import SelectChain from "./components/select-chain";
+import { Modal } from "./components/Modal";
 
 export default function Home() {
   const {
@@ -66,14 +66,14 @@ export default function Home() {
     if (con.id === "injected") {
       const provider = con.getProvider();
       if (!provider) {
-        if (typeof window !== "undefined") {
+        if (typeof window !== undefined) {
           let url = "";
           if (con.name === "Bitget") {
             url = "https://web3.bitget.com/en/wallet-download?type=2";
           } else if (con.name === "Binance") {
             url = "https://www.bnbchain.org/en/binance-wallet";
           }
-          if (url) {
+          if (url && typeof window !== undefined) {
             window.open(url);
             return;
           }

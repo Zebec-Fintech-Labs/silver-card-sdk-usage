@@ -1,7 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { twMerge } from "tailwind-merge";
-import { CrossIcon } from "./assets/icons";
 
 type ModalSize = "small" | "medium" | "large" | "extra-large";
 

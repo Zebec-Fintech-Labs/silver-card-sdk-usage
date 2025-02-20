@@ -1,11 +1,6 @@
 "use client";
 // hooks/useBittensorWallet.js
 import { useState, useEffect } from "react";
-import {
-  web3Enable,
-  web3Accounts,
-  web3FromAddress,
-} from "@polkadot/extension-dapp";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 // import type { InjectedAccountWithMeta } from '@polkadot/extension-dapp';
 
@@ -29,6 +24,9 @@ export const useBittensorWallet = () => {
 
   const connectWallet = async () => {
     // Request wallet extension permissions
+    const { web3Enable, web3Accounts, web3FromAddress } = await import(
+      "@polkadot/extension-dapp"
+    );
     const extensions = await web3Enable("Bittensor Wallet");
     if (extensions.length === 0) {
       console.error("No wallet extension found");
